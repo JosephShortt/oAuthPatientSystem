@@ -1,5 +1,6 @@
 package com.joseph.resource_server.controller;
 
+import com.joseph.resource_server.dto.PatientResponse;
 import com.joseph.resource_server.model.Patient;
 import com.joseph.resource_server.service.PatientService;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class PatientController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Patient>> searchPatients(@RequestParam String name){
-        List<Patient> patients = patientService.searchPatients(name);
+    public ResponseEntity<List<PatientResponse>> searchPatients(@RequestParam String name){
+        List<PatientResponse> patients = patientService.searchPatients(name);
         return ResponseEntity.ok(patients);
     }
 }

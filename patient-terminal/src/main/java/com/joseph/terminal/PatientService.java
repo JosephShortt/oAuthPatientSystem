@@ -14,7 +14,7 @@ public class PatientService {
 
     public static void searchPatients(String name, String token) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/patients/search?name=" + name))
+                .uri(URI.create("http://localhost:8080/api/patients/search?name=" + name.replace(" ","%20")))
                 .header("Authorization", "Bearer " + token)
                 .GET()
                 .build();
@@ -34,7 +34,19 @@ public class PatientService {
             System.out.println("DOB: " + patient.get("dateOfBirth").asText());
             System.out.println("Gender: " + patient.get("gender").asText());
             System.out.println("Address: " + patient.get("address").asText() + ", " + patient.get("city").asText());
+
+            JsonNode conditions = patient.get("conditions");
+            if (conditions !=null && !conditions.isEmpty()){
+                System.out.println("Conditions:");
+                for (JsonNode condition : conditions){
+                    System.out.println("  - " +condition.asText());
+                }
+            }
+            else {
+                System.out.println("Conditions: None");
+            }
             System.out.println("----");
+
         }
     }
 }
