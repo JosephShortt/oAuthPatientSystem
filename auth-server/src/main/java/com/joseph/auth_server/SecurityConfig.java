@@ -25,7 +25,7 @@ public class SecurityConfig {
     public RegisteredClientRepository registeredClientRepository(){
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("patient-client")
-                .clientSecret(passwordEncoder().encode("secret"))
+                .clientSecret("{bcrypt}" + passwordEncoder().encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .scope("read")
